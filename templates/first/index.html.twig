@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FirstController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+{% autoescape "js" %}
+    alert('Hi');
+{% endautoescape %}
+<div class="example-wrapper">
+    {# <h1>Hello {{controller_name|abs}}! ✅</h1> #}
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'D:/xampp/htdocs/symfony_pr/src/Controller/FirstController.php'|file_link(0) }}">src/Controller/FirstController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'D:/xampp/htdocs/symfony_pr/templates/first/index.html.twig'|file_link(0) }}">templates/first/index.html.twig</a></code></li>
+    </ul>
+<a href="{{path('Accueil',{'slug':'2013'})  }}">Show</a>
+
+{# {{ "I like this and that,,,."|replace({',': '.'}) }}
+{{ "I like %this% and %that%."|replace({'%this%': foo, '%that%': "bar"}) }}
+</p>
+</div>
+{% set items = ['a', 'b', 'c', 'd', 'e', 'f', 'g'] %} #}
+{{"I like %s and %s."|format("foo","bar")}}
+
+{# 
+<table>
+{% for row in items|batch(2,'No item') %}
+    <tr>
+        {% for column in row %}
+            <td>{{ column|capitalize}}</td>
+        {% endfor %}
+    </tr>
+{% endfor %}
+</table> #}
+{{product}}
+{{ include('test/number.html.twig',{'slug':'slug'}) }}
+{% endblock %}
