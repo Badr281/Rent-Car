@@ -13,12 +13,12 @@
 <div class="example-wrapper">
     {# <h1>Hello {{controller_name|abs}}! ✅</h1> #}
 
-    This friendly message is coming from:
+    <!-- This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ 'D:/xampp/htdocs/symfony_pr/src/Controller/FirstController.php'|file_link(0) }}">src/Controller/FirstController.php</a></code></li>
         <li>Your template at <code><a href="{{ 'D:/xampp/htdocs/symfony_pr/templates/first/index.html.twig'|file_link(0) }}">templates/first/index.html.twig</a></code></li>
-    </ul>
-<a href="{{path('Accueil',{'slug':'2013'})  }}">Show</a>
+    </ul> -->
+
 
 {# {{ "I like this and that,,,."|replace({',': '.'}) }}
 {{ "I like %this% and %that%."|replace({'%this%': foo, '%that%': "bar"}) }}
@@ -37,6 +37,10 @@
     </tr>
 {% endfor %}
 </table> #}
-{{product}}
+
+{% autoescape %}
+{{productContent|raw}}
+{% endautoescape %}
+
 {{ include('test/number.html.twig',{'slug':'slug'}) }}
 {% endblock %}

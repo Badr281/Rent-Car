@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+        <h3 class="text-center">Voiture disponibles :</h3>
+    {% for car in Car %}
+        <div class="container">
+            <table class="table" border="1px solid">   
+               
+                <tbody >
+                    <tr class = "text-center" style="width:100%">
+                        <td class="text-center" style="text-align:center;" style="width: 50%"  >
+                                <a href="{{path('show',{'id': car.id})   }}"  >
+                                    {{car.model}}
+                                </a>
+                            </td>
+                        <td class="text-center" style="width:50%" >
+                            <a href="{{path('edit3',{'id':car.id})}} "  >Editer</a>
+                        </td>
+                       </tr>
+                    </tbody>
+                </table>
+        </div >
+          
+        
+  
+        {% endfor %}
+
+ 
+    {% endblock %}

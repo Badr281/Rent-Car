@@ -1,0 +1,77 @@
+{% extends "base.html.twig" %}
+
+{% block crud %}
+
+    <div class="container-fluid col-md-12 " id="d">
+        <div class="section ">
+            
+                <div class="col s12 m12">
+                    <h1 class="header-text center">
+                        <em>
+                            L'ajout d'une voiture
+                        </em>
+                      </h1>
+                
+                    {% include "library/form.html.twig" %}
+                    {{ form_end(form) }}
+                    <button id="key1" class="btn">Add keyword ?</button>
+                    <button id="key2" class="btn">remove keyword ?</button>
+                    <button type="submit" class="btn">Save</button>
+                </div>
+
+         
+        </div>
+    </div>
+    <style>
+        #ABC {
+            background-color: white;
+            padding-bottom: 10px;
+
+        }
+    </style>
+{% endblock %}
+
+{% block body1 %}{% endblock %}
+{% block javascript %}{{parent()}}
+    <script
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            var $container = $('#car_keywords');
+            var $index = $container
+                .find(':input')
+                .length;
+
+            $('#key2').click(function (e) {
+                e.preventDefault();
+                $('data-prototype:last-child').remove();
+                $index--;
+            });
+            $('#key1').click(function (e) {
+                e.preventDefault();
+                addkeyword($container);
+            });
+
+            if ($index == 0) {
+                addkeyword($container);
+            }
+
+            function addkeyword($container) {
+                var template = $container
+                    .attr('data-prototype')
+                    .replace(/__name__label__/g, 'mot clé n°' + (
+                        $index + 1
+                    ))
+                    .replace(/__name__/g, $index);
+
+                var $prototype = $(template);
+                $container.append($prototype);
+                $index++;
+
+            }
+
+        });
+    </script>
+{% endblock %}

@@ -15,7 +15,4 @@ framework:
     #fragments: true
     php_errors:
         log: true
-
-    assets:
-        enabled: true
-        base_path: '/pic'
+  

@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block  crud  %}
+
+
+{{form(form)}}
+
+
+{% if app.request.method =='POST' %}
+
+
+{% for book in books %}
+
+{% if book.image_id.name is defined %}
+
+ <h3>Image :</h3>  <img src="{{asset('pic/')~book.image.name}}" alt="">
+{% else %}
+    <h3> Image : Aucune image insérée  </h3>
+{% endif %}
+
+ <h3>Title : </h3>  {{book.title}}
+ <h3>subject : </h3>  {{book.subject}}
+
+
+
+
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}
+{% block body1 %}
+{% endblock %}

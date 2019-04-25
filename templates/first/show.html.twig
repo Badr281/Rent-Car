@@ -1,0 +1,18 @@
+{% extends "test/number.html.twig" %}
+{% block title %} {{choice}} {% endblock %}
+{% block body %}
+{%  if choice =='vue' %}
+<div style="background:green;" >
+    <h1 >Tu prends le meilleur </h1>
+</div>
+
+{% endif %}
+{%  if choice =='react' %}
+<h1 style="background:blue;">Nice choice</h1>
+{% endif %}
+
+{%  if choice =='angular' %}
+<h1 style="background:red;">Sweet choice</h1>
+{% endif %}
+    {# <a href="{{path('Accueil',{choice:2013})}}" class="btn btn-success">home</a> #}
+{% endblock %}

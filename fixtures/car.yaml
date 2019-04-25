@@ -1,0 +1,16 @@
+App\Entity\Car: 
+    car_{Infinity, volvo, BMW}:
+        name: '<current()>' 
+        price: '<pricef()>'
+        model: '<modelr()>'     
+        color: '<color()>'
+        fuel : '<carb()>'
+        cities: ['@city1','@city2']
+        
+    car_{mercedes, nissan, tesla}:
+        name: '<current()>' 
+        price: '<pricef()>'
+        model: '<modelr()>'    
+        color: '<color()>'
+        fuel : '<carb()>'
+        cities: ['@city3','@city2']

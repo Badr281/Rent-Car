@@ -1,0 +1,116 @@
+{% extends "base.html.twig" %}
+{% block crud %}
+<div class="container " style="height:200vh">
+        <div class="section col-md-6 offset-3">
+            <div class="row" >
+          
+             <header>
+                  <h2> Enter required infomation below : </h2>
+             </header> 
+                {{form_start(form)}}
+                {{form_label(form.color)}}
+                {{form_widget(form.color)}}
+             
+                {{form_label(form.fuel)}}
+                {{form_widget(form.fuel)}}
+                
+                {{form_label(form.city)}}
+                {{form_widget(form.city)}}
+
+                {{form_label(form.min_price)}}
+                {{form_widget(form.min_price)}}
+
+                {{form_label(form.max_price)}}
+                {{form_widget(form.max_price)}}
+                <br><br>
+                {{form_label(form.search)}}
+                {{form_widget(form.search)}}
+             
+                {{form_end(form)}}
+         
+            </div>
+        </div>
+
+        {# Search operation  including on card  #}
+        
+{% if app.request.method == 'POST' %}
+    {% for car in Car %}
+        <div class="card-deck">
+
+            <div class="col-md-4">
+                <div class="card " style="width: 18rem;">
+
+                    <div class="card-body">
+
+                        {% if car | length > 0 %}
+
+                            <h5 class="card-title">
+                                Voiture N°:{{car.id}}</h5>
+                            <h3>Name :{{car.name }}
+                            </h3>
+
+                            <h3>Model :
+                                {{car.model }}
+                            </h3>
+
+                            <h3>Price :{{car.price}}</h3>
+
+                            {% if car.image.name is defined %}
+                                <img src="{{asset('pic/')~Car.image.name}}" height="100%" width="100%">
+                            {% else %}
+                                <h3>Image :</h3>
+                                <p>
+                                    Pas d'image insérée</p>
+                            {% endif %}
+                            <h3>Color :
+                                {{car.color}}
+                            </h3>
+
+                            <h3>fuel :{{car.fuel}}
+                            </h3>
+                            {% for keyword in car.keywords %}
+                                <p>
+                                    {{ keyword.name }}
+                                    {% if not loop.last %},
+                                    {% endif %}
+                                </p>
+
+                            {% endfor %}
+
+                            {% if car.cities | length > 0 %}
+
+                                <p >
+                                    <h3>City :
+                                        {% for city in car.cities %}
+                                            <a class="waves-effect waves-light btn btn-sm-10">
+                                                <i class="material-icons left ">
+                                                    {{ city.name }}
+                                                </i>
+                                            </a>
+                                        {% endfor %}
+                                    </h3>
+                                </p>
+
+                            {% else %}
+                                <h3>Aucune ville trouvé</h3>
+                            {% endif %}
+                        {% else %}
+                            <h3>Aucun enregistrement trouvé</h3>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+
+            </div>
+
+        {% endfor %}
+    </div>
+{% endif %}
+</div>
+
+{% endblock %}
+{% block body1 %}{% endblock %}
+
+
+

@@ -1,3 +1,0 @@
-# blog_list:
-#     path:     /lucky/number 
-#     controller: App\Controller\TestController::number

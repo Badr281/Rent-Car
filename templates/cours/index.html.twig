@@ -1,0 +1,46 @@
+{% extends 'cours/base.html.twig' %}
+{% block title %}
+
+    {{ parent()}}
+    Titre de l applicatoin symfony
+
+{% endblock %}
+
+{% block header %}
+    <div>
+        {{ parent() }}
+        <div>Gestion des personnes</div>
+    </div>
+
+{% endblock %}
+{% block article %}
+
+    <table>
+        <tr>
+            <th>id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>  </th>
+        </tr>
+        {% for personne in personnes %}
+            <tr>
+                <td><a href="{{path('ping', {'id': personne.id}) }}">{{personne.id}} </a></td>
+                <td><a href="{{path('ping', {'id': personne.id}) }}">{{personne.FirstName}} </a></td>
+                <td><a href="{{path('ping', {'id': personne.id}) }}">{{personne.LastName}} </a></td>
+                <td><a href="{{path('ping', {'id': personne.id}) }}"> {{personne.Age}} </a></td>
+                <td>  <button  >Ajouter </button> &nbsp; <button>Modifier</button>  <button> supprimer</button> </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}
+{% block footer %}
+ Copyright   <span style="display:inline;  font-weight: bold; "> &copy;</span>2019 
+{% endblock %}
+{% block nav %}
+
+    <br >
+
+{% endblock %}

@@ -1,0 +1,10 @@
+App\Entity\Provider:
+    provider_1:
+      name : php
+      period: 22 day
+    provider_2:
+      name : Javascript
+      period: 10
+    provider_3:
+      name : phyton
+      period: 10

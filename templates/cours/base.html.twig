@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+<title>{% block title %} Welcome Home Page!{% endblock %}</title>
+ {% block stylesheets %}
+ <link href="{{ asset('css/base.css') }}" rel="stylesheet" />
+ {% endblock %}
+  </head>
+<body>
+
+  <header><img src="{{ asset('pic/img.png') }}" alt="Symfony!"style="float-right" /> {% block header %}{% endblock %}</header>
+  <div id="main">
+    <article>{% block article %}{% endblock %}</article>
+    <nav>{% block nav %}{% endblock %}</nav>
+    <aside>{% block aside %}{% endblock %}</aside>
+  </div>
+  <footer>{% block footer %}{% endblock %}</footer>
+</body>
+</html>

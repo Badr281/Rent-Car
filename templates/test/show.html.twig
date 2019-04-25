@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block crud %}
+   
+    <div class="container" >
+           <div class="section text-left  offset-4">
+                <div class="row">
+    
+               <div class="col-md-12">
+                    <h3>L'id de la voiture est :
+                        {{Car.id}}
+                    </h3>
+                    <h3>
+                        Model :
+                        {{Car.getModel}}
+                    </h3>
+                    <h3>nom :
+                        {{Car.name}}</h3>
+                    <h3>Prix :{{Car.price}}
+                    </h3>
+                   
+                    {% if Car.image.name is defined %}
+                        <p>
+                            <h3>Image :
+                                <img width="100px" height="100px" src="{{ asset('pic/')~Car.image.name  }}">
+                            </h3>
+                        </p>
+                    {% else %}
+                        <p>
+                            <h3>price :</h3>
+                            aucune image isérée</p>
+                    {% endif %}
+                   
+                    {% for keyword in Car.keywords %}
+                   
+                        <p>
+                            {{ keyword.name }}
+                            {% if not loop.last %},
+                            {% endif %}
+                        </p>
+                   
+                    {% endfor %}
+                   
+                    {% if Car.cities | length > 0 %}
+                        <p>
+                            {% for city in Car.cities %}
+                                <a class="waves-effect waves-light btn">
+                                    <i class="material-icons left">
+                                        {{ city.name }}</i>
+                                </a>
+                                {% if not loop.last %}{% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    <a href="{{path('library')}}">Accueil</a>
+               </div>
+        
+</div>
+
+    </div>
+</div>
+
+{% endblock %}
+{% block body1 %}{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    {% if year is defined %}
+    <b>L'année d'édition de livre est :   {{year}} </b>
+        <h1>
+        </h1>
+    {% else %}
+        <b>
+          Le titre de livre est :  {{title}}
+        </b>
+    {% endif %}
+
+
+    <!-- -->    
+
+{% endblock %}
