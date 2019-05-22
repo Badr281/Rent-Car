@@ -13,10 +13,12 @@
                       </h1>
                 
                     {% include "library/form.html.twig" %}
-                    {{ form_end(form) }}
+                   
                     <button id="key1" class="btn">Add keyword ?</button>
-                    <button id="key2" class="btn">remove keyword ?</button>
                     <button type="submit" class="btn">Save</button>
+                    {{ form_end(form) }}
+                    
+                    
                 </div>
 
          
@@ -43,8 +45,10 @@
             var $index = $container
                 .find(':input')
                 .length;
+            $container.find('label.required').remove();
 
-            $('#key2').click(function (e) {
+                $('#key2').click(function (e) {
+
                 e.preventDefault();
                 $('data-prototype:last-child').remove();
                 $index--;
@@ -64,13 +68,50 @@
                     .replace(/__name__label__/g, 'mot clé n°' + (
                         $index + 1
                     ))
-                    .replace(/__name__/g, $index);
-
+                .replace(/__name__/g, $index);
+                
                 var $prototype = $(template);
                 $container.append($prototype);
-                $index++;
+                removeKeyword($prototype);
+                $index++    
 
+               
             }
+            function removeKeyword($prototype){
+                var $deletelink =$('<a href ="#" class="btn btn-danger sm-4">Annuler</a>')
+                $prototype.append($deletelink);
+                $deletelink.click(function(e){   
+                    $prototype.remove();    
+                    e.preventDefault();
+                    $index--;
+                    
+                    return false;
+                            
+                })
+            }
+      $('.deleteKeyword').click(function(e){
+      var path = $(this).attr('data-delete-path');
+      var idkeyword= $(this).attr('data-keyword-id');
+      var $classArea = $(this).closest('.classArea');
+        $.ajax({
+        method:"POST",
+        url: path,
+        data: {id:idkeyword},
+        success: function(){
+          $classArea.remove();  
+        },
+       error:function(){
+          $('.error-delete-keyword').css('display','block');  
+       },
+       
+        
+       
+
+       }); 
+
+       
+
+      });
 
         });
     </script>

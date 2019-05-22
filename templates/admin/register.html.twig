@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+{% block crud %}
+
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col m6 offset m3">
+                    {{form_start(form)}}
+                    {{form_row(form.email)}}
+                    
+                    {{form_row(form.password)}}
+                    {{form_row(form.Inscrire)}}
+                    
+                  
+                    {{form_end(form)}}
+                  
+                   
+           
+            </div>
+            
+        </div>
+        <a  class="float-right" href="{{path('app_login')}}">Connexion</a>
+    
+    </div>
+</div>
+
+<br><br><br>
+{% endblock %}
+{% block body1 %}{% endblock %}

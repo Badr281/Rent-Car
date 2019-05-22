@@ -1,0 +1,11 @@
+App\Entity\User:
+  admin:
+    email: admin@gmail.com  
+    roles: ['ROLE_ADMIN']
+    password: '<encoderPassword(admin)>'
+  user:
+    email: user@gmail.com  
+    roles: ['ROLE_ADMIN']
+    password: '<encoderPassword(admin)>'
+
+  

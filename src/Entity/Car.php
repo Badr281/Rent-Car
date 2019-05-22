@@ -135,6 +135,7 @@ class Car
     {
         if (!$this->cities->contains($city)) {
             $this->cities[] = $city;
+             
         }
 
         return $this;
@@ -142,7 +143,8 @@ class Car
 
     public function removeCity(City $city): self
     {
-        if ($this->cities->contains($city)) {
+        if($this->cities->contains($city)){
+
             $this->cities->removeElement($city);
         }
 
@@ -186,5 +188,21 @@ class Car
         return $this;
     }
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User",inversedBy="cars")
+     */
+    private $user;
+ 
+    public function getUser()
+    {
+        return $this->user;
+    }
 
+    
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
 }

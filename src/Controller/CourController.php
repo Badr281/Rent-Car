@@ -32,6 +32,7 @@ public function index(PersonneRepository $repo )
   */
 public function show(PersonneRepository $personnerep,$id){
     $personne =$personnerep->find($id);
+
  
     return $this->render('cours/home.html.twig',[
           'personne'=>$personne

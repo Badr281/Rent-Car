@@ -6,8 +6,17 @@
         <div class="section">
             <div class="row" >
                 <div class="col s12 m12">
-                 <h3 class="center " > <em>Edition d'une voiture</em>  </h3>
+                 <h3 class="center"> <em>Edition d'une voiture</em>  </h3>
                   {% include "library/form.html.twig" %}
+
+                  <div class="error-delete-keyword"  style="width:400px;height:3px; display:none">   
+                      <div class="card">
+                          <span class="red-text text-darken-2 ">Erreur de la suppression de mot clé</span>
+                          <br> 
+                      </div>
+                  </div>
+                  
+                  <button id="key1" class="btn">Add keyword ?</button>
                   <button type="submit" class="form-control">Edit</button>
                     {{ form_end(form)}}
                 
@@ -16,5 +25,96 @@
             </div>
         </div>
     </div>
+     <style>
+        #ABC {
+            background-color: white;
+            padding-bottom: 10px;
+
+        }
+</style>
 {% endblock %}
+
+
 {% block body1 %}{% endblock %}
+{% block javascript %}{{parent()}}
+    <script
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            var $container = $('#car_keywords');
+            var $index = $container
+                .find(':input')
+                .length;
+            $container.find('label.required').remove();
+
+                $('#key2').click(function (e) {
+
+                e.preventDefault();
+                $('data-prototype:last-child').remove();
+                $index--;
+            });
+            $('#key1').click(function (e) {
+                e.preventDefault();
+                addkeyword($container);
+            });
+
+         
+
+            function addkeyword($container) {
+                var template = $container
+                    .attr('data-prototype')
+                    .replace(/__name__label__/g, 'mot clé n°' + (
+                        $index + 1
+                    ))
+                .replace(/__name__/g, $index);
+                
+                var $prototype = $(template);
+                $container.append($prototype);
+                removeKeyword($prototype);
+                $index++    
+
+               
+            }
+            function removeKeyword($prototype){
+                var $deletelink =$('<a href ="#" class="btn btn-danger sm-4">Annuler</a>')
+                $prototype.append($deletelink);
+                $deletelink.click(function(e){   
+                    $prototype.remove();    
+                    e.preventDefault();
+                    $index--;
+                    
+                    return false;
+                            
+                })
+            }
+      $('.deleteKeyword').click(function(e){
+      var path = $(this).attr('data-delete-path');
+      var idkeyword= $(this).attr('data-keyword-id');
+      var $classArea = $(this).closest('.classArea');
+        $.ajax({
+        method:"POST",
+        url: path,
+        data: {id:idkeyword},
+        success: function(){
+          $classArea.remove();  
+        },
+       error:function(){
+          $('.error-delete-keyword').css('display','block');  
+       },
+       
+        
+       
+
+       }); 
+
+       
+
+      });
+
+        });
+    </script>
+{% endblock %}
+
+

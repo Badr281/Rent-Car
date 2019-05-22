@@ -2,7 +2,7 @@
 
 {% block body %}
 
-        <h3 class="text-center">Voiture disponibles :</h3>
+        <h3 class="text-center">Voitures disponibles :</h3>
     {% for car in Car %}
         <div class="container">
             <table class="table" border="1px solid">   
@@ -14,15 +14,44 @@
                                     {{car.model}}
                                 </a>
                             </td>
-                        <td class="text-center" style="width:50%" >
-                            <a href="{{path('edit3',{'id':car.id})}} "  >Editer</a>
-                        </td>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <!--  Répartitions des opérations au niveau des utilisateurs de l'application en se basant a chacun et son role   -->
+                           {% if is_granted('ROLE_ADMIN') %}
+                       
+                         
+                            
+                            <td class="text-center" style="width:50%" >
+                            <!-- Voter class -->
+                                    {% if is_granted('EDIT',car) %}
+                                    <a href="{{ path('edit3',{'id':car.id}) }}" >Editer </a>
+                                    {% endif %}
+                                    {% if is_granted('delete',car) %}
+                                    <a href="{{path('remove',{'id':car.id}) }}"  >| Supprimer</a>
+                                    {% endif %}
+                                </td>
+                            {% elseif is_granted('ROLE_USER') %}
+                            <td class="text-center" style="width:50%" >
+                            <a href="{{ path('edit3',{'id':car.id}) }}" >Editer </a>
+                            <a href="{{path('remove',{'id':car.id})}}" class="disabled" >| Supprimer</a>
+                            </td>
+                            {% endif %}
+                                
+                            {% endif %}
+
+                           
+                            
+                     
                        </tr>
                     </tbody>
                 </table>
         </div >
           
-        
+        <style>
+            a.disabled{
+                pointer-events:none;
+                cursor: default;
+            }
+        </style>
   
         {% endfor %}
 

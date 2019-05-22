@@ -5,8 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Image
 {
@@ -22,6 +24,27 @@ class Image
      */
     private $name;
     private $file;
+    
+    /**
+     * Get the value of file
+     */ 
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set the value of file
+     *
+     * @return  self
+     */ 
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
 
     public function getId(): ?int
     {
@@ -39,16 +62,53 @@ class Image
 
         return $this;
     }
-
-    public function getFile()
+    private $path;
+    /**
+     * Get the value of path
+     */ 
+    public function getPath()
     {
-        return $this->file;
+        return $this->path;
     }
 
-    public function setFile(UploadedFile $file): self
-    {   
-        $this->file = $file;
+    /**
+     * Set the value of path
+     *
+     * @return  self
+     */ 
+    public function setPath($path)
+    {
+        $this->path = $path;
 
         return $this;
+    } 
+
+    /**
+     * @ORM\PreFlush()
+     */
+  public function handle() 
+  {
+        if($this->file === null  ){
+
+            return;
+        }
+
+    if($this->id){  
+        unlink($this->path.'/'.$this->name);
     }
+  
+  
+
+  $name = $this->imageName();
+  $this->setName($name);
+  // deplacer le fichier
+  $this->file->move($this->path,$name);
+  
+  }
+
+  public function imageName() : string
+  {
+      return md5(uniqid()).'.'.$this->file->guessExtension();
+      //  or  $this->file->getClientOriginalName();
+  }
 }

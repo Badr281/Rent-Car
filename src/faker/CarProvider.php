@@ -11,6 +11,7 @@ class CarProvider extends Base
         'electrique'
         ];
     const color =['Navy' ,'blue','violet'];
+    
 
     const model =['2017' ,'2018','2019'];
 

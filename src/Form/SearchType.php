@@ -30,7 +30,8 @@ class SearchType extends AbstractType
             ])
             ->add('city',EntityType::class,[
                 'class'=> City::class,
-                'choice_label'=>'name',             
+                'choice_label'=>'name',
+                     
                      ])
 
             ->add('min_price',choiceType::class,[

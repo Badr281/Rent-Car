@@ -1,0 +1,18 @@
+{% extends "library/form.html.twig" %}
+{% block keyword_widget %}
+{% spaceless %}
+    <div class="classArea">
+        {{block('collection_widget')}}      
+    
+                {% if form.vars.value.id  is defined %}
+                <a class="deleteKeyword btn btn-warning" style="color: white;"
+                 data-keyword-id="{{form.vars.value.id}}" 
+                 data-delete-path = "{{ path('deleteKeywords',{'id':form.vars.value.id}) }}"  >Supprimer</a>
+                 
+                {% endif %}
+   
+        
+    </div>
+{% endspaceless %}
+
+{% endblock %}

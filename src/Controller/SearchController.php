@@ -1,42 +1,46 @@
 <?php
 namespace App\Controller;
+use App\Entity\Keyword;
 use App\Form\SearchType;
 use App\Form\Search1Type;
 use App\Repository\CarRepository;
 use App\Repository\BookRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SearchController extends AbstractController 
 {
 
-    // /**
-    //  * @Route("search",name="search1")
-    //  */
-    // public function search(Request $request,CarRepository $carRepository){
+    /**
+     * @Route("/car/search",name="search1")
+     */
+    public function search(Request $request,CarRepository $carRepository){
 
-    //     $form = $this->createForm(SearchType::class);
-    //     $form->handleRequest($request);
-    //     $car = [];
-    //     if($form->isSubmitted() && $form->isValid() )
-    //     {   
-    //         $data = $form->getData();
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+        $car = [];
+        if($form->isSubmitted() && $form->isValid() )
+        {   
+            $data = $form->getData();
           
-    //         $car = $carRepository->searchCar($data);
+            $car = $carRepository->searchCar($data);
         
              
-    //     }
-    //     return $this->render('test/search.html.twig',[
-    //         'form'=> $form->createView(),
-    //         'Car'=> $car
-    //     ]);
-    // }
+        }
+        return $this->render('test/search.html.twig',[
+            'form'=> $form->createView(),
+            'Car'=> $car
+        ]);
+    }
 
 
+// practice search method on another entity 
 
     /**
-     * @Route("search1",name="search1")
+     * @Route("/car/search1",name="search2")
      */
     public function test(Request $request,BookRepository $BookRepository ){ 
        
@@ -46,14 +50,27 @@ class SearchController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
 
             $data =$form->getData();
-            $book =$BookRepository->search($data);
+            $book =$BookRepository->searchbook($data);
+          
         }
 
         return $this->render('cours/search.html.twig',[
         'form' => $form->createView(),
-        'books'=>$book
+        'books'=>$book,
+
 
         ]);
+    }
+    /**
+     * @Route("/car/deleteKeyword/{id}", name="deleteKeywords", methods = {"POST"} ,defaults={"id"=63},
+     * condition="request.headers.get('X-Requested-With') matches '/XMLHttpRequest/i'"
+     * )
+     */
+    public function deleteky(Keyword $keyword1,EntityManagerInterface $EntityManager ){ 
+        
+            $EntityManager->remove($keyword1);
+            $EntityManager->flush();   
+            return new JsonResponse();
     }
 
 
