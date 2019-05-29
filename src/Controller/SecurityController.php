@@ -55,7 +55,8 @@ class SecurityController extends AbstractController
            $user->setPassword($userPassword);
            $user->setRoles(['ROLE_ADMIN']);  
            // La création de d'utilisateur avec l'envoie d'email a travers le service TokenSender
-           $token = new Token($user);   
+           $token = new Token($user); 
+        
    
            $manager->persist($token);   
         //    dd($token);
@@ -77,13 +78,11 @@ class SecurityController extends AbstractController
         /**
          * @Route("/confirmation/{value}",name="token_validation")
          */
-        public function validate(Token $token,TokenRepository $tokenRepository,EntityManagerInterface $manager,GuardAuthenticatorHandler $guardHandler,LoginFormAuthenticator $LoginFormAuthenticator,
+        public function validate(Token $token,EntityManagerInterface $manager,GuardAuthenticatorHandler $guardHandler,LoginFormAuthenticator $LoginFormAuthenticator,
             Request $request ){
                 
             $user =$token->getUser();
         
-            
-
             if($user->getEnable() === true){
                     $this->addFlash('notice',
                     "Le compte est déja vérifiée"
@@ -101,13 +100,14 @@ class SecurityController extends AbstractController
                     $LoginFormAuthenticator,
                     'main'
                 );
-                $manager->remove($token);
-                $manager->remove($user);
-                $manager->flush();
-               
+                $this->addFlash('notice', "Compte vérifé");
+                return $this->redirectToRoute('library');         
                
 
             }
+            $manager->remove($token);
+            $manager->remove($user);
+            $manager->flush();
             $this->addFlash('notice', "Le token est expiré , Inscriver vous à nouveau");
 
             return $this->redirectToRoute('register');

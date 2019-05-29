@@ -55,8 +55,8 @@
 
                             <h3>Price :{{car.price}}</h3>
 
-                            {% if car.image.name is defined %}
-                                <img src="{{asset('pic/')~Car.image.name}}" height="100%" width="100%">
+                            {% if car.image.id is defined %}
+                             <i> Image : </i>   <img src="{{asset('pic/')~car.image.name}}" height="100px" width="100px">
                             {% else %}
                                 <h3>Image :</h3>
                                 <p>

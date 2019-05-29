@@ -2,58 +2,109 @@
 
 {% block body %}
 
-        <h3 class="text-center">Voitures disponibles :</h3>
-    {% for car in Car %}
-        <div class="container">
-            <table class="table" border="1px solid">   
+<samp class="text-center"><h3>Voitures disponibles </h3>  </samp> <br>
+{% for car in Car %}
+<div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="card-panel grey lighten-5 z-depth-1">
+                <td class="text-center mt-6" style="text-align:center;" style="width: 50%" >
+                        <a href="{{path('show',{'id': car.id})   }}" style="color:#ff6f00" class="brand-logo black-text p-2"  >
+                      <div class="mx-auto"> <kbd class="mt-6">  {{car.name|upper}}   -   {{car.model|upper}}  </kbd> </div>
+                        </a>
+                </td>
+              
+          <div class="row valign-wrapper">
+            <div class="col s3">
                
-                <tbody >
-                    <tr class = "text-center" style="width:100%">
-                        <td class="text-center" style="text-align:center;" style="width: 50%"  >
-                                <a href="{{path('show',{'id': car.id})   }}"  >
-                                    {{car.model}}
-                                </a>
-                            </td>
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <!--  Répartitions des opérations au niveau des utilisateurs de l'application en se basant a chacun et son role   -->
-                           {% if is_granted('ROLE_ADMIN') %}
-                       
-                         
-                            
-                            <td class="text-center" style="width:50%" >
-                            <!-- Voter class -->
-                                    {% if is_granted('EDIT',car) %}
-                                    <a href="{{ path('edit3',{'id':car.id}) }}" >Editer </a>
-                                    {% endif %}
-                                    {% if is_granted('delete',car) %}
-                                    <a href="{{path('remove',{'id':car.id}) }}"  >| Supprimer</a>
-                                    {% endif %}
-                                </td>
-                            {% elseif is_granted('ROLE_USER') %}
-                            <td class="text-center" style="width:50%" >
-                            <a href="{{ path('edit3',{'id':car.id}) }}" >Editer </a>
-                            <a href="{{path('remove',{'id':car.id})}}" class="disabled" >| Supprimer</a>
-                            </td>
-                            {% endif %}
-                                
-                            {% endif %}
+                {% if car.image.name  is defined %}
+                  
+                
+                <a href="{{path('show',{'id': car.id})   }}" >
+                        <figure class="figure">
+             <img src="{{asset('/pic/'~car.image.name)}}" width="100px" height="100px"  class="circle responsive-img figure-img img-fluid rounded">  
+             <figcaption class="figure-caption text-center">   <b>{{car.price|upper}} €</b> </figcaption>
+            </figure>
+            </a>  
+        {% endif %}
+            </div>
+            
+            <div class="col s10">
+                
+              <span class="black-text">
+                  <em>{{car.description}}</em> 
+ 
+              </span>
+              
+            </div>
+          </div>
+          <footer>
+                <div class="btn-group float-right " >
+                    
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <!-- Répartitions des opérations au niveau des utilisateurs de l'application en
+                se basant a chacun et son role -->
 
-                           
-                            
+
+              
+
+
+                
+                {% if is_granted('ROLE_ADMIN') %}
+            
+                    <td class=" float-right brand-logo black-text" style="width:50%">
+                        <!-- Voter class -->
                      
-                       </tr>
-                    </tbody>
-                </table>
+                        <a href="{{path('remove',{'id':car.id}) }}" class="btn btn-danger
+                        float-right "> Supprimer</a>  
+                            
+
+                    
+                            <a href="{{ path('edit3',{'id':car.id}) }}" class="btn btn-primary float-right offset-2">Editer
+                            </a>
+                   
+            <br>
+                    </td>
+                {% elseif is_granted('ROLE_USER') %} &nbsp;
+                <td class=" float-right brand-logo black-text" style="width:50%">
+                        <!-- Voter class -->
+
+                        {% if is_granted('EDIT', car) %}
+                            <a href="{{ path('edit3',{'id':car.id}) }}" class="btn btn-primary float-right offset-1">Editer
+                            </a>
+                        {% endif %}
+
+
+                        {% if is_granted('delete', car) %}
+                        <a href="{{path('remove',{'id':car.id}) }}" class="btn btn-danger
+                        float-right disabled "> Supprimer</a>  
+                            
+                    {% endif %}
+            <br>
+                    </td>
+                {% endif %}
+            
+            {% endif %}
+        </div>
+        <br>
+        </footer>
+           
+        </div>
+      </div>
+      {% endfor %}  
+      
         </div >
           
         <style>
             a.disabled{
                 pointer-events:none;
                 cursor: default;
+                color:#ff6f00;
+            }
+            a{
+                color:indigo;
             }
         </style>
   
-        {% endfor %}
+        
 
  
     {% endblock %}

@@ -16,11 +16,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Service\imageHandler;
+use Symfony\Component\Security\Core\Security;
 
 
 
 class LibraryController extends AbstractController
 {
+
+    private $security;
+    public function __construct(Security $security){
+
+        $this->security =  $security;
+    }
     /**
      * @Route("/", name="library")
      */
@@ -34,7 +41,8 @@ class LibraryController extends AbstractController
         return $this->render('test/index1.html.twig',[
             'title'=>$title,
             'year'=> $year,
-            'Car'=>$car
+            'Car'=>$car,
+           
             ]);
     }
 	
@@ -99,7 +107,9 @@ class LibraryController extends AbstractController
      */
     public function remove(Car $car,EntityManagerInterface $manager)
     {   
-
+        if ($this->security->isGranted('ROLE_USER') ) {
+            $this->denyAccessUnlessGranted('delete',$car);
+         }    
         $manager->remove($car);
         $manager->flush();
         $this->addFlash('notice',
@@ -156,14 +166,16 @@ class LibraryController extends AbstractController
      * @Route("car/edit3/{id}",name="edit3")
      */
     public function edit(Car $car,EntityManagerInterface $manager,Request $request,ValidatorInterface $validator){
+        if ($this->security->isGranted('ROLE_USER') ) {
         $this->denyAccessUnlessGranted('EDIT',$car);
+        }
         $form = $this->createForm(CarType::Class,$car);
         $form->handleRequest($request);
         $cardata = $form->getData()->getImage();
       
 
         if($form->isSubmitted() && $form->isValid() ){ 
-            $this->denyAccesUnlessGranted('EDIT',$cardata);
+        
             $path = $this->getParameter('kernel.project_dir').'\public\pic' ;
             $datacar = $form->getData();
             $car = $datacar->getImage();

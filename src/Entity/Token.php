@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 
+use DateInterval;
 use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -87,7 +88,7 @@ class Token
  
     public function isValid(){
         $interval = new \DateInterval('PT6H');
-
-        return  new \DateTime() <= $this->createdAt->add($interval);
+        return $this->createdAt->add($interval) >= new \DateTime();
+        // return  new \DateTime() <= $this->createdAt->add($interval);
     }
 }

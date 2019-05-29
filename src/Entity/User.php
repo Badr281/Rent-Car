@@ -149,7 +149,6 @@ class User implements UserInterface
         {    
         $this->cars->add($car);
         $car->setUser($this);
-
         }
 
         return $this;
@@ -159,5 +158,9 @@ class User implements UserInterface
         if(!$this->cars->contains($cars)){
             $this->cars->remove($cars);
         }
+    }
+    public function isAdmin()
+    {
+        return \in_array('ROLE_ADMIN',$this->getRoles());
     }
 }

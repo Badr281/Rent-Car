@@ -192,6 +192,11 @@ class Car
      * @ORM\ManyToOne(targetEntity="User",inversedBy="cars")
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $description;
  
     public function getUser()
     {
@@ -202,6 +207,18 @@ class Car
     public function setUser($user)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

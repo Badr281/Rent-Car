@@ -14,11 +14,19 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\GoogleAuthenticator
+            logout: 
+                path: logout    
         main:
             anonymous: true
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
+                   
             logout: 
                 path: logout
 
@@ -36,4 +44,16 @@ security:
           - { path: ^/admin, roles: ROLE_ADMIN }
           - { path: ^/profile, roles: ROLE_USER }
           - { path: ^/car, roles: ROLE_USER }
+
+knpu_oauth2_client:
+    clients:
+        google:
+            # must be "google" - it activates that type!
+            type: google
+            # add and configure client_id and client_secret in parameters.yml
+            client_id: '%env(resolve:GOOGLE_CLIENT_ID)%'
+            client_secret: '%env(resolve:GOOGLE_CLIENT_SECRET)%'
+            # a route name you'll create
+            redirect_route: connect_google_check
+            redirect_params: {}  
           

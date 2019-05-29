@@ -10,8 +10,11 @@
   <link href=" {{asset('css/materialize.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
   <link href="{{ asset('css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
   
-  <link rel="stylesheet" href="{{ asset('font-awesome-4.3.0/css/font-awesome.min.css') }}"/>
   <link rel="stylesheet" href=" {{ asset('css/bootstrap.min.css')  }} "/>
+  <link rel="stylesheet" href="{{ asset('font-awesome-4.3.0/css/font-awesome.min.css') }}"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
  
 </head>
 
@@ -26,22 +29,28 @@
     select{
       display: initial;
     }
+  #img_b{
+      background-image: url(" {{asset('pic/car1.jpg') }}");
+    }
+
 	</style>
 {% block nav %}
-   <nav class="orange darken-2">
+   <nav class="" style="background-color: 	#2f2626;"> 
+    <!-- or #1f567d color -->
     <l class="nav-wrapper">
-      <a href="{{path('library')}}" class="brand-logo">Rent Car</a>
+      <a href="{{path('library')}}" class="brand-logo"><i class="fas fa-car"> </i></a>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
       <ul class="right hide-on-med-and-down">
         {# <li><a href="{{path('list')}}">Accueil</a></li> #}
         
           {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-              <li> <p>{{ app.user.email }}</p></li>
-              <li><a class="link" href="{{path('logout')}}"> logout  </a></li>
-              {% else %}
-              <li><a class="link" href="{{path('app_login')}}" > login </a></li>
-              <li><a class="link" href="{{path('register')}}" > Register </a></li>
+              <li> <p><i class="fas fa-user"> </i> {{ app.user.email }}</p></li>
+              <li><a class="link" href="{{path('logout')}}"> <i class="fas fa-sign-out-alt"></i>  Logout  </a></li>
+              {% elseif app.user == null %}
+              <li><a class="link" href="{{path('app_login')}}" ><i class="fas fa-sign-in-alt"> Login</i> </a></li>
+              <li><a class="link" href="{{path('register')}}" ><i class="fas fa-registered"> Register </i>  </a></li>
           {% endif %}
+      
  
           
        
@@ -64,7 +73,15 @@
   </div>  
 {% endfor %}
   {% endblock %}
- <div class="section no-pad-bot orange lighten-5 " >
+  {% if Car.id is defined  %}
+
+  <div style="background-color:#F8EFEF; " >  
+
+    {% else %}
+
+    
+ <div class="section no-pad-bot orange lighten-5 "  style="background-color:F8EFEF;">
+{% endif %}
     <div class="container" id="ABC">
       <div class="col-md-12">
 
@@ -72,19 +89,34 @@
        
           
           {% block crud %}
-              <h1 class="center" style=" color:orangered ">
-                 <small>Rent car</small>
-              </h1>
+            <div class="container center" >
+
+          <div class="col-md-12">
+                  <div class="row center">
+                      <h1  class="col-md-12" style=" color:orangered ">
+                         Rent car
+                      </h1>
+                  </div >
+                <div class="row ">
+                    <small class="float-right col-md-12 center"><b>  Service a haute qualité et moins  coût.</b></small>
+                </div>
+          </div>
+    </div>
+            </di>
               {% if is_granted('IS_AUTHENTICATED_FULLY') %}
               <p class="center">
-                Location des véhicules<br><br>
+             
                {% if is_granted('ROLE_ADMIN') %}
              
-               <a class="btn" href="{{path('admin')}}" > Admin </a>
-               <a class="btn" href="{{path('search1')}}" > Search </a>
+               <a class="btn" href="{{path('admin')}}" ><i class="fas fa-user-cog"> Admin</i></a>
+               <a class="btn" href="{{path('search1')}}" ><i class="fas fa-search"> Search</i></a>
                {% endif %}
                
-               <a class="btn" href="{{path('add1')}}" > Add+ </a>
+               <a class="btn" href="{{path('add1')}}" ><i class="fas fa-plus"> Add </i> </a>
+               {% if is_granted('ROLE_USER') %}
+              <a href="{{path('dashboard')}}" class="btn"><i class="fas fa-user-minus"> Dashboard</i></a>
+               {% endif %}
+               
                
             
         
@@ -120,7 +152,7 @@
 
   {% endblock %}
 
-  <footer class="page-footer orange darken-3"  style="margin:0;  margin-bottom:0;">
+  <footer class="page-footer "  style="margin:0;  margin-bottom:0;background-color:#2f2626;">
    
   
     <div class="footer-copyright text-center py-3" >
@@ -150,10 +182,6 @@
 </script>
     
 {% endblock %}
-
-
-	
-
 	
   </body>
 </html>

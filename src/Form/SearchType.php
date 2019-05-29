@@ -34,7 +34,7 @@ class SearchType extends AbstractType
                      
                      ])
 
-            ->add('min_price',choiceType::class,[
+            ->add('min_price',ChoiceType::class,[
                 'label'=> 'prix minimal',
                 'choices' =>array_combine(self::min_price,self::min_price),
             ])

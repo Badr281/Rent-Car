@@ -28,9 +28,12 @@ class CarVoter extends Voter
     {
         $user = $token->getUser();
 
-
         if(null == $car->getUser()){
             return false;
+        }
+        if($user->isAdmin())
+        {
+          return true;
         }
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
@@ -40,10 +43,10 @@ class CarVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case 'EDIT':
-            if ($this->security->isGranted('ROLE_USER') ) {
+            // if ($this->security->isGranted('ROLE_USER') ) {
                 return $car->getUser()->getId() == $user->getId();
                 break;   
-            }
+            // }
             case 'delete':
             if ($this->security->isGranted('ROLE_USER') ) {
                 return $car->getUser()->getId() == $user->getId();

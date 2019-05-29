@@ -10,15 +10,27 @@
     {{ form_widget(form.model) }}
     <span><strong style="color:red" >{{ form_errors(form.model) }}</strong></span>
 </div>
+
 <div class="input-field col s12">
     {{ form_label(form.price,'Prix :' ,{label_attr :{'class':'form_price'}}) }}
     {{ form_widget(form.price) }}
     <span><strong style="color:red" > {{ form_errors(form.price) }}</strong></span>
-</div >
+</div>
+<div class="input-field col s12">
+        {{ form_widget(form.description) }}
+        {{ form_label(form.description) }}
+        <span><strong style="color:red" > {{ form_errors(form.description) }}</strong></span>
+</div> 
 
+<br>
 
-        {{form_row(form.Color)}} <br>
-        {{form_row(form.fuel)}}
+    <div class="" >
+            {{form_row(form.fuel)}}
+    </div>
+    <div class="" >
+            {{form_row(form.Color)}}   
+    </div>
+       
 
 
 
@@ -26,45 +38,52 @@
 <div class="file-field input-field col s12">  
   
       
-    <div class="btn float-left ">
+    <div class="btn float-left  ">
       <span>
              {{(form.image.vars.value.id is defined and form.vars.value.id is not empty ) ? "Edit" :"Add"}}
     
     </span>
+    
          
         {{ form_widget(form.image,{attr:{'class':'offset-2'}}) }}
            
     </div> 
 
     {% if form.image.vars.value.id is defined and form.vars.value.id is not empty %}
-    <img src="{{asset('pic/')~form.image.vars.value.name}}" class="responsive-img offset-2" width="80px" height="80px">
+    <img src="{{asset('pic/')~form.image.vars.value.name}} " class="responsive-img offset-2" width="80px" height="80px">
    <br>
    <div class="file-path-wrapper float-left " >
-        <input class="file-path validate " type="text">
+        <input class="file-path validate " type="text" required>
     </div>
     {% else %}
     <div class="file-path-wrapper float-left">
             <input class="file-path validate" type="text">
     </div>
     {% endif %}
-  
-        
-     
 
-</div>
-    {{form_label(form.cities)}}
-    {{form_widget(form.cities)}} 
+
+    </div>    
+
+    <div >
+   &nbsp;   {{form_label(form.cities)}}
+            {{form_widget(form.cities)}} 
+    </div>
+ 
     <br><br>
-    {{form_label(form.keywords) }}  
-    {{form_widget(form.keywords) }}
-    <span><strong style="color:red" >
-    {{ form_errors(form.keywords) }}
-    
+    <div class="col-md-12">
+            {{form_label(form.keywords) }}  
+            {{form_widget(form.keywords) }}
+            <span><strong style="color:red" >
+            {{ form_errors(form.keywords) }}
+            </strong></span>
 
-    </strong></span>
+    </div>
+  
+
 
 
 
 
 
 <br>
+
