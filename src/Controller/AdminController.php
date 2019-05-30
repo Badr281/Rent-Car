@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Token;
 use App\Form\AdminType;
+use App\Service\deleteUser;
 use App\Repository\UserRepository;
+use App\Repository\TokenRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,36 +25,42 @@ class AdminController extends AbstractController
     // ou par le fichier security.yaml
 
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/super", name="super")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function index(UserRepository $UserRepository,Token $token)
+    public function index(UserRepository $UserRepository,TokenRepository $TokenRepository)
     {
         $user = $UserRepository->findAll();
+        $token = $TokenRepository->findAll();
         return $this->render('admin/index.html.twig',[
-            'users'=>$user,
-            'token'=>$token->getValue()
+            'users'=> $user,
+            'token'=>$token
+
+           
         ]);
     }
     /**
-     * @Route("admin/delete1/{value}",name="deleteA",methods="GET|POST")
+     * @Route("super/delete1/{value}",name="deleteAa",defaults={"id"=3},methods={"GET"} )
+     * @ParamConverter("token", options={"id" = "value"})
      */
-    public function deleleAdmin(Token $token,EntityManagerInterface $manager,UserRepository $userRepository,Request $request){
-       if( $request->isMethod('POST'))
-    {
-        $user =$token->getUser();
+    public function deleleAdmin(Token $token, EntityManagerInterface $manager,UserRepository $userRepository,Request $request){
+        
+        $user = $token->getUser();
+        if(!$user == null)
+  {    
         $manager->remove($token);
         $manager->remove($user);
         $manager->flush();
         $this->addFlash('notice',"La suppression est bien fait");
     }
-       return $this->render('admin/admin.html.twig', [
+    
+       return $this->render('admin/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
     
     /**
-     * @Route("admin/edit/{id}",name="editA" ,requirements={"id":"\d+"} )
+     * @Route("admin/edit/{id}",name="editA")
      */
     public function Edit(User $user,EntityManagerInterface $manager,Request $request){
       

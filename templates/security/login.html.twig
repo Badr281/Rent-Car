@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col m6 offset m3 ">
                      
-                        <form method="post"  action="{{path('connect_google')}}">
+                        <form method="post">
                                 {% if error %}
                                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                                 {% endif %}
@@ -18,7 +18,8 @@
                                  <div class="row">
                                     <div class="input-field col s6">
                                         <label for="inputEmail" class="sr-only active">Email</label>
-                                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control validate" placeholder="Email" required autofocus>
+                                        <input type="email"  name="email" id="inputEmail" class="form-control validate" placeholder="Email" required autofocus>
+                                        <!-- value=" last_username  -->
                                     </div>
                               </div>
                                 <label for="inputPassword" class="sr-only">Password</label>
@@ -39,12 +40,11 @@
                                     </div>
                                 #}                             
                             
-                                <button class="btn btn-lg btn-primary form-control btn-block" type="submit">
+                                <button class="btn btn-lg btn-primary form-control btn-block" type="submit" >
                                  <i class="fa fa-lock"></i>   Sign in
                                 </button>
-
-                        
                        <!-- redirect to google account using onclick -->
+                       
                                   <button class="fab  btn btn-danger btn-lg danger form-control" onclick="location.href='{{path('connect_google')}}'"  type="button" >
                                     <em class="fab fa-google-plus-square "></em>    With Gmail account
                                   </button>
