@@ -123,15 +123,18 @@ class LibraryController extends AbstractController
      * @Route("/car/ajouter",name="add1")
      */
     public function add(EntityManagerInterface $manager,Request $request,ValidatorInterface $validator)
-    {
-        $form = $this->createForm(CarType::Class);
+    {   
+        
+        $path = $this->getParameter('kernel.project_dir').'\public\pic' ; 
+        $form = $this->createForm(CarType::Class,null,['path'=>$path]);
         $form->handleRequest($request);
+       
 
         if($form->isSubmitted() && $form->isValid() ){
-        $path = $this->getParameter('kernel.project_dir').'\public\pic' ;
+       
         $cardata =  $form->getData();
-        $image = $cardata->getImage();    
-        $image->setPath($path);
+        // $image = $cardata->getImage();    
+        // $image->setPath($path);
         $user = $this->getUser();
         $cardata->setUser($user);
             // naviguer avec la référence de l'entité

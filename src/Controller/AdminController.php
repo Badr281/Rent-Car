@@ -32,9 +32,10 @@ class AdminController extends AbstractController
     {
         $user = $UserRepository->findAll();
         $token = $TokenRepository->findAll();
+    
         return $this->render('admin/index.html.twig',[
             'users'=> $user,
-            'token'=>$token
+            'tokens'=>$token
 
            
         ]);
@@ -47,16 +48,17 @@ class AdminController extends AbstractController
         
         $user = $token->getUser();
         if(!$user == null)
-  {    
+        {    
         $manager->remove($token);
         $manager->remove($user);
         $manager->flush();
         $this->addFlash('notice',"La suppression est bien fait");
-    }
+        }
     
-       return $this->render('admin/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
+    //    return $this->render('admin/index.html.twig', [
+    //         'users' => $userRepository->findAll(),
+    //     ]);
+        return $this->redirectToRoute('library');
     }
     
     /**

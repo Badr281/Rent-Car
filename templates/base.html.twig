@@ -35,36 +35,42 @@
 
 	</style>
 {% block nav %}
-   <nav class="" style="background-color: 	#2f2626;"> 
-    <!-- or #1f567d color -->
-    <l class="nav-wrapper">
-      <a href="{{path('library')}}" class="brand-logo"><i class="fas fa-car"> </i></a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-      <ul class="right hide-on-med-and-down">
-        {# <li><a href="{{path('list')}}">Accueil</a></li> #}
-        
-          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-              <li> <p><i class="fas fa-user"> </i> {{ app.user.email }}</p></li>
-              <li><a class="link" href="{{path('logout')}}"> <i class="fas fa-sign-out-alt"></i>  Logout  </a></li>
-              {% elseif app.user == null %}
-              <li><a class="link" href="{{path('app_login')}}" ><i class="fas fa-sign-in-alt"> Login</i> </a></li>
-              <li><a class="link" href="{{path('register')}}" ><i class="fas fa-registered"> Register </i>  </a></li>
-          {% endif %}
+<nav class="" style="background-color: 	#2f2626;"> 
+
+  <div class="nav-wrapper">
+    <a href="{{path('library')}}" class="brand-logo"><i class="fas fa-car"> </i></a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+    <ul class="right hide-on-med-and-down">
+      {# <li><a href="{{path('list')}}">Accueil</a></li> #}
       
- 
-          
-       
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li > <p><i class="fas fa-user"> </i> {{ app.user.email }}</p></li>
+            <li ><a class="nav-link" href="{{path('logout')}}"> <i class="fas fa-sign-out-alt"></i>  Logout  </a></li>
+            {% elseif app.user == null %}
+            <li><a class="nav-link" href="{{path('app_login')}}" ><i class="fas fa-sign-in-alt"> </i> Login </a></li>
+            <li><a class="nav-link" href="{{path('register')}}" ><i class="fas fa-registered"> Register </i>  </a></li>
+        {% endif %}
+    
+
         
+     
+      
+
+      
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+      {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+      <li > <p><i class="fas fa-user"> </i> {{ app.user.email }}</p></li>
+      <li ><a class="nav-link" href="{{path('logout')}}"> <i class="fas fa-sign-out-alt"></i>  Logout  </a></li>
+      {% elseif app.user == null %}
+      <li><a class="nav-link" href="{{path('app_login')}}" ><i class="fas fa-sign-in-alt"> </i> Login </a></li>
+      <li><a class="nav-link" href="{{path('register')}}" ><i class="fas fa-registered"> Register </i>  </a></li>
+
+  {% endif %}
+</ul>
+</div>
+</nav>
  
-        
-      </ul>
-      <ul class="side-nav" id="mobile-demo">
-       <li><a href="#">Link1</a></li>
-        <li><a href="#">Link2</a></li>
-        <li><a href="#">Link3</a></li>
-      </ul>
-    </div>
-  </nav>
   {% endblock %}
   {% block flash_message %}
   {% for message in app.flashes('notice') %}
@@ -75,7 +81,7 @@
   {% endblock %}
   {% if Car.id is defined  %}
 
-  <div style="background-color:#F8EFEF; " >  
+  <div style="background-color:rgba(131, 89, 12, 0.178); " >  
 
     {% else %}
 
@@ -102,7 +108,7 @@
                 </div>
           </div>
     </div>
-            </di>
+            </div>
               {% if is_granted('IS_AUTHENTICATED_FULLY') %}
               <p class="center">
              
@@ -148,6 +154,12 @@
       
       </div>
 
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
     </div>
 
   {% endblock %}
@@ -165,9 +177,9 @@
   <!--  Scripts-->
 {% block javascript %}
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    
+  <script src="{{asset('js/materialize.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/materialize.min.js')}}"></script>
+ 
 
     <script src="{{asset('js/materialize.js')}}"></script>
 

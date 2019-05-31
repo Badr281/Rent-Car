@@ -20,6 +20,10 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+
+
 
 
 class CarType extends AbstractType
@@ -60,8 +64,21 @@ class CarType extends AbstractType
                      ]);
             
 
-            
-    
+        $builder->addEventListener( FormEvents::POST_SUBMIT,
+        function (FormEvent $event) use ($options){
+
+            $data = $event->getData();
+         $fileSubmitted  =  $event->getForm()->get('image')->get('file')->getData();
+          if($fileSubmitted == null) {
+              $data->setImage(null);
+              return;
+          } 
+          $image= $car->getImage();
+          $image->setPath($options['path']);
+          
+        
+        });
+
             
         
     }
@@ -70,6 +87,7 @@ class CarType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Car::class,
+            'path' => null
             // 'my_model'=>null
         ]);
     }

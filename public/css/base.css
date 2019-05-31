@@ -16,9 +16,9 @@
      flex: 0 0 20vw;
      background: beige;
    }
-   #main > nav {
+   /* #main > nav {
      order: -1;
-   }
+   } */
    header, footer, article, nav, aside {
      padding: 1em;
    }

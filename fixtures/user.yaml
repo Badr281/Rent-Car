@@ -1,11 +1,24 @@
 App\Entity\User:
   admin:
-    email: admin@gmail.com  
+    email: badr@gmail.com  
     roles: ['ROLE_ADMIN']
     password: '<encoderPassword(admin)>'
+    enable: true
   user:
     email: user@gmail.com  
-    roles: ['ROLE_ADMIN']
+    roles: ['ROLE_USER']
     password: '<encoderPassword(admin)>'
+    enable: true
+  user1:
+    email: alice@gmail.com  
+    roles: ['ROLE_USER']
+    password: '<encoderPassword(admin)>'
+    enable: true
+  admin1:
+    email: admin@gmail.com  
+    roles: ['ROLE_ADMIN']
+    password: '<encoderPassword(admin)>'  
+    enable: true    
+
 
   

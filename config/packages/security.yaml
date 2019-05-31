@@ -23,13 +23,14 @@ security:
         #         path: logout 
 
         main:
-            anonymous: true
+            anonymous: ~
             logout: 
                 path: logout
                 target: /login
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
+                    - App\Security\GoogleAuthenticator  
                  
                 entry_point: App\Security\LoginFormAuthenticator
                    

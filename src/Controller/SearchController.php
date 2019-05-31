@@ -62,7 +62,7 @@ class SearchController extends AbstractController
         ]);
     }
     /**
-     * @Route("/car/deleteKeyword/{id}", name="deleteKeywords", methods = {"POST"} ,defaults={"id"=63},
+     * @Route("/search/deleteKeyword/{id}", name="deleteKeywords", methods = {"POST"} ,defaults={"id"=63},
      * condition="request.headers.get('X-Requested-With') matches '/XMLHttpRequest/i'"
      * )
      */

@@ -24,7 +24,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                            {% for tk in token %}
+                        {% if tokens is defined %}
+                        
+                            {% for tk in tokens %}
                             
                         <tr>
                             
@@ -42,8 +44,13 @@
                         </tr>
                       
                         {% endfor %} 
+
+                        {% endif %}
                     </tbody>
             </table>
+              <br>
+              <br>
+              <br>
               <br>
               <br>
               <br>
