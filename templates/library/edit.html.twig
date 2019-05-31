@@ -41,16 +41,14 @@
         src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
-    <script>
+        <script>
         $(document).ready(function () {
             var $container = $('#car_keywords');
             var $index = $container
                 .find(':input')
                 .length;
             $container.find('label.required').remove();
-
                 $('#key2').click(function (e) {
-
                 e.preventDefault();
                 $('data-prototype:last-child').remove();
                 $index--;
@@ -59,9 +57,7 @@
                 e.preventDefault();
                 addkeyword($container);
             });
-
          
-
             function addkeyword($container) {
                 var template = $container
                     .attr('data-prototype')
@@ -74,7 +70,6 @@
                 $container.append($prototype);
                 removeKeyword($prototype);
                 $index++    
-
                
             }
             function removeKeyword($prototype){
@@ -106,15 +101,15 @@
        
         
        
-
        }); 
-
        
-
       });
-
+      $('.deleteImage').click(function (e) {
+        $('.responsive-img').remove();
+    });
         });
     </script>
+
 {% endblock %}
 
 

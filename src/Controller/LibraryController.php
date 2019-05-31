@@ -172,17 +172,18 @@ class LibraryController extends AbstractController
         if ($this->security->isGranted('ROLE_USER') ) {
         $this->denyAccessUnlessGranted('EDIT',$car);
         }
-        $form = $this->createForm(CarType::Class,$car);
+
+
+        $path = $this->getParameter('kernel.project_dir').'\public\pic' ; 
+        $form = $this->createForm(CarType::Class,$car,['path'=>$path]);
         $form->handleRequest($request);
-        $cardata = $form->getData()->getImage();
       
 
         if($form->isSubmitted() && $form->isValid() ){ 
         
-            $path = $this->getParameter('kernel.project_dir').'\public\pic' ;
+           
             $datacar = $form->getData();
-            $car = $datacar->getImage();
-            $car->setPath($path);
+        
             $user = $this->getUser();
             $datacar->setUser($user);
             $manager->flush();

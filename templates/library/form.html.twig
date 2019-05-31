@@ -41,16 +41,20 @@
     <div class="btn float-left  ">
       <span>
              {{(form.image.vars.value.id is defined and form.vars.value.id is not empty ) ? "Edit" :"Add"}}
-    
+           
     </span>
+
     
          
         {{ form_widget(form.image,{attr:{'class':'offset-2'}}) }}
            
     </div> 
+    
 
-    {% if form.image.vars.value.id is defined and form.vars.value.id is not empty %}
+    {% if form.image.vars.value.id is defined and form.image.vars.value.id is not empty %}
+    {# delete an img #}
     <img src="{{asset('pic/')~form.image.vars.value.name}} " class="responsive-img offset-2" width="80px" height="80px">
+    <a class="deleteImage btn btn-warning" style="color: white;"  >Supprimer</a>
    <br>
    <div class="file-path-wrapper float-left " >
         <input class="file-path validate " type="text" required>
