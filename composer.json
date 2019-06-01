@@ -38,6 +38,8 @@
         "symfony/yaml": "4.2.*"
     },
     "require-dev": {
+        "behat/behat": "^3.5",
+        "behat/symfony2-extension": "^2.1",
         "hautelook/alice-bundle": "^2.4",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",

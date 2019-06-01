@@ -73,7 +73,7 @@ class CarType extends AbstractType
               $data->setImage(null);
               return;
           } 
-          $image= $data->getImage();
+          $image= $data ->getImage();
           $image->setPath($options['path']);
           
         
