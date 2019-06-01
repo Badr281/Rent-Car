@@ -202,6 +202,15 @@ class LibraryController extends AbstractController
 
         ]);
     }
+
+
+    /**
+     * @Route("/contact",name="contactus")
+     */
+    public function contact()
+    {
+        return $this->render('library/contact.html.twig');
+    }
     // ---------------- traditional method add --------------
     // /**
     //  * @Route("add4",name="add4")
